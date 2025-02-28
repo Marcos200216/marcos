@@ -8,17 +8,19 @@
     <style>
         /* Estilos generales */
         body {
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background: url("nuevo_fondo.jpg");
-            color: white;
-            font-family: 'Arial', sans-serif;
-            overflow: hidden;
-        }
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: url("nuevo_fondo.png") no-repeat center center fixed;
+    background-size: cover; /* Asegura que la imagen cubra toda la pantalla */
+    color: white;
+    font-family: 'Arial', sans-serif;
+    overflow: hidden;
+}
+
 
         /* Estilo del canvas */
         canvas {
@@ -130,8 +132,6 @@
 </head>
 <body>
 
-    <!-- Mensaje de nivel -->
-    <h1 class="question">🎯 ¡Bienvenido al Nivel 2!</h1>
 
     <!-- Pantalla de transición -->
     <div class="transition-screen"></div>
@@ -151,6 +151,6 @@
     <!-- Canvas para el juego -->
     <canvas id="gameCanvas" width="800" height="600"></canvas>
 
-    <script src="game.js"></script>
+    <script src="nuevo.js"></script>
 </body>
 </html>

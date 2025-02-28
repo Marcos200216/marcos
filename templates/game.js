@@ -106,7 +106,7 @@ function detectCollisions() {
                 bullets = bullets.filter(bullet => bullet !== b); // Eliminar bala
 
                  // Verificar si alcanzó 1000 puntos para avanzar de nivel
-                 if (score >= 500) {
+                 if (score >= 60) {
                     showLevelUpMessage();
                 }
             }
@@ -131,6 +131,10 @@ function showLevelUpMessage() {
     message.style.fontWeight = "bold";
     message.style.zIndex = "9999";
     document.body.appendChild(message);
+
+    
+     // Eliminar el puntaje guardado en localStorage
+     localStorage.removeItem("gameScore");
 
     // Redirigir a otro_nivel.html después de 2 segundos
     setTimeout(() => {
