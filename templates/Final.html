@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¡Felicidades, Has Ganado!</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: #f7f7f7;
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            color: #333;
+            flex-direction: column;
+        }
+
+        h1 {
+            font-size: 4em;
+            color: #ff6347;
+            text-transform: uppercase;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+            margin-bottom: 30px;
+        }
+
+        p {
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        button {
+            padding: 15px 30px;
+            background-color: #ffcc00;
+            border: none;
+            font-size: 1.2em;
+            cursor: pointer;
+            border-radius: 5px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        button:hover {
+            background-color: #a78638;
+        }
+
+        /* Estilo de la ventana emergente */
+        .popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.4);
+            text-align: center;
+            width: 300px;
+        }
+
+        .popup input {
+            padding: 10px;
+            margin: 10px 0;
+            width: 80%;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        .popup button {
+            background-color: #ff6347;
+            color: white;
+            font-size: 1.2em;
+            border: none;
+            padding: 12px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .popup button:hover {
+            background-color: #ff4500;
+        }
+
+        /* Ventana de broma */
+        .broma-popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #ffffff;
+            color: rgb(6, 2, 2);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.4);
+            text-align: center;
+            width: 300px;
+        }
+
+        /* Pantalla negra para la transición */
+.transition-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: black;
+    opacity: 1;
+    z-index: 9999;
+    animation: fadeIn 1.5s ease-in-out forwards;
+}
+
+/* Animación de desvanecimiento desde negro */
+@keyframes fadeIn {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+        display: none;
+    }}
+    </style>
+</head>
+<body>
+    <h1>¡Felicidades, Has Ganado $1000 dolal <br>así es $1000 dolal!</h1>
+    <p>Haz clic en el botón para reclamar tu recompensa.</p>
+    <button onclick="showPopup()">¡Reclama tu premio ahora!</button>
+
+    <!-- Ventana emergente para datos -->
+    <div class="popup" id="popup">
+        <h2>¡Genial! Solo necesitamos algunos datos para enviarte tu premio</h2>
+        <p>Por favor, ingresa tu tarjeta de crédito para completar la transacción.</p>
+        <form id="dataForm">
+            <input type="text" placeholder="Número de tarjeta de crédito" required />
+            <input type="text" placeholder="Fecha de vencimiento" required />
+            <input type="text" placeholder="Tres dígitos de atrás" required />
+            <button type="button" onclick="closePopup()">Enviar mis datos</button>
+        </form>
+    </div>
+
+      <!-- Pantalla de transición -->
+      <div class="transition-screen"></div>
+
+    <!-- Ventana emergente con el mensaje de broma -->
+    <div class="broma-popup" id="bromaPopup">
+        <h2>¡Gracias!</h2>
+        <p>Espero que tengas dinero en tu cuenta</p>
+        <button onclick="closeBroma()">Cerrar</button>
+    </div>
+
+    <script>
+        function showPopup() {
+            document.getElementById('popup').style.display = 'block';
+        }
+
+        function closePopup() {
+            // Verificar si los campos del formulario son válidos
+            const form = document.getElementById('dataForm');
+            if (form.checkValidity()) {
+                // Mostrar ventana emergente con el mensaje de broma
+                document.getElementById('popup').style.display = 'none';
+                document.getElementById('bromaPopup').style.display = 'block';
+            } else {
+                // Si los campos no son válidos, mostrar mensaje de error
+                alert('Por favor, completa todos los campos requeridos.');
+            }
+        }
+
+        function closeBroma() {
+            // Cerrar la ventana de la broma
+            document.getElementById('bromaPopup').style.display = 'none';
+        }
+    </script>
+</body>
+</html>

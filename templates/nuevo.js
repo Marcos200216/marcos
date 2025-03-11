@@ -20,7 +20,7 @@ shooterImage.src = "nave.png"; // Cambia con la ruta de la imagen del tirador
 // Cargar sonidos
 const sonidoDisparo = new Audio("sounds/disparo.wav");
 sonidoDisparo.volume = 0.2;
-const sonidoImpacto = new Audio("sounds/impacto.wav");
+const sonidoImpacto = new Audio("sounds/impacto2.wav");
 const sonidoFondo = new Audio("sounds/fondo2.mp3");
 
 // Reproducir sonido de fondo en bucle
@@ -29,10 +29,20 @@ sonidoFondo.volume = 0.5; // Ajusta el volumen si es necesario
 sonidoFondo.play();
 
 window.onload = function() {
+    // Si el jugador NO viene de una pregunta correcta, reiniciar puntaje
+    if (!sessionStorage.getItem("answeredCorrectly")) {
+        localStorage.removeItem("gameScore"); // Borra el puntaje guardado
+    }
+
     // Recupera la puntuación guardada o establece 0 si no hay ninguna
     let savedScore = localStorage.getItem("gameScore");
-    score = savedScore ? parseInt(savedScore) : 0;  // Recuperar o inicializar en 0
-    document.getElementById('score').innerText = score;  // Actualiza la pantalla con el puntaje
+    score = savedScore ? parseInt(savedScore) : 0;  
+
+    // Actualiza la pantalla con el puntaje
+    document.getElementById('score').innerText = score;
+
+    // Limpia la variable para que no afecte futuras recargas
+    sessionStorage.removeItem("answeredCorrectly");
 };
 
 // Puntuación inicial
@@ -153,7 +163,7 @@ function detectCollisions() {
         for (let bullet of b.duckBullets) {
             if (bullet.x < shooter.x + shooter.width && bullet.x + bullet.width > shooter.x && bullet.y < shooter.y + shooter.height && bullet.y + bullet.height > shooter.y) {
                 gameOver = true;
-                alert("¡Has sido alcanzado por una bala de pato!");
+                alert("¡Has sido alcanzado por una bala del enemigo!");
                 setTimeout(() => {
                     window.location.href = "preguntas2.html";
                 }, 1000); // Redirigir a preguntas.html después de un retraso
@@ -167,7 +177,7 @@ function detectCollisions() {
 function showLevelUpMessage() {
     // Crear el mensaje flotante
     let message = document.createElement("div");
-    message.innerText = "🎉 ¡Felicidades! Has avanzado al siguiente nivel.";
+    message.innerText = "🎉 ¡Felicidades! Has ganado el juego!";
     message.style.position = "fixed";
     message.style.top = "50%";
     message.style.left = "50%";
@@ -183,7 +193,7 @@ function showLevelUpMessage() {
 
     // Redirigir a otro_nivel.html después de 2 segundos
     setTimeout(() => {
-        window.location.href = "otro_nivel.html";
+        window.location.href = "Final.html";
     }, 2000);
 }
 
@@ -205,11 +215,11 @@ let missedDucks = 0; // Contador de patos que han escapado
 
 // Función para actualizar el contador de patos perdidos
 function updateLostDucks() {
-    document.getElementById('lostDucks').innerText = `Patos perdidos: ${missedDucks}`;
+    document.getElementById('lostDucks').innerText = `Naves perdidas: ${missedDucks}`;
 
     if (missedDucks >= 3) {
         setTimeout(() => {
-            alert("¡Juego Terminado! Has perdido 3 patos.");
+            alert("¡Juego Terminado! Has perdido 3 naves.");
         }, 100); // Pequeño retraso para que la pantalla se actualice primero
     }
 }

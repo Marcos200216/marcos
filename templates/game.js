@@ -29,11 +29,22 @@ sonidoFondo.volume = 0.5; // Ajusta el volumen si es necesario
 sonidoFondo.play();
 
 window.onload = function() {
+    // Si el jugador NO viene de una pregunta correcta, reiniciar puntaje
+    if (!sessionStorage.getItem("answeredCorrectly")) {
+        localStorage.removeItem("gameScore"); // Borra el puntaje guardado
+    }
+
     // Recupera la puntuación guardada o establece 0 si no hay ninguna
     let savedScore = localStorage.getItem("gameScore");
-    score = savedScore ? parseInt(savedScore) : 0;  // Recuperar o inicializar en 0
-    document.getElementById('score').innerText = score;  // Actualiza la pantalla con el puntaje
+    score = savedScore ? parseInt(savedScore) : 0;  
+
+    // Actualiza la pantalla con el puntaje
+    document.getElementById('score').innerText = score;
+
+    // Limpia la variable para que no afecte futuras recargas
+    sessionStorage.removeItem("answeredCorrectly");
 };
+
 
 // Puntuación inicial
 document.getElementById('score').innerText = score;
@@ -106,7 +117,7 @@ function detectCollisions() {
                 bullets = bullets.filter(bullet => bullet !== b); // Eliminar bala
 
                  // Verificar si alcanzó 1000 puntos para avanzar de nivel
-                 if (score >= 60) {
+                 if (score >= 100) {
                     showLevelUpMessage();
                 }
             }
