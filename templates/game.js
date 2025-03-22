@@ -117,7 +117,7 @@ function detectCollisions() {
                 bullets = bullets.filter(bullet => bullet !== b); // Eliminar bala
 
                  // Verificar si alcanzó 1000 puntos para avanzar de nivel
-                 if (score >= 100) {
+                 if (score >= 1000) {
                     showLevelUpMessage();
                 }
             }

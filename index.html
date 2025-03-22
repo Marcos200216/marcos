@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pantalla de Inicio - Juego de Caza Patos Matemáticos</title>
+    <title>Pantalla de Inicio - Caza Patos Matemáticos</title>
     
     <style>
         /* Estilos generales */
@@ -13,7 +13,6 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            flex-direction: column;
             height: 100vh;
             background: linear-gradient(135deg, #1e3c72, #2a5298);
             color: white;
@@ -21,30 +20,61 @@
             text-align: center;
         }
 
-        /* Estilo del contenedor */
+        /* Contenedor principal */
         .container {
-            max-width: 600px;
+            width: 95%;
+            max-width: 900px; /* MÁS ANCHO */
             padding: 20px;
-            background: rgba(0, 0, 0, 0.5);
-            border-radius: 10px;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 12px;
+            box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.6);
+            max-height: 95vh; /* MENOS ALTO */
+      
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
 
         h1 {
-            font-size: 32px;
+            font-size: 34px;
             margin-bottom: 10px;
             color: #ffcc00;
-            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+            text-shadow: 3px 3px 8px rgba(0, 0, 0, 0.8);
         }
 
-        p {
+        .instructions {
+            text-align: left;
             font-size: 18px;
+            line-height: 1.5;
             margin-bottom: 20px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .instructions div {
+            width: 48%;
+        }
+
+        .highlight {
+            color: #ffcc00;
+            font-weight: bold;
+        }
+
+        ul {
+            padding-left: 20px;
+        }
+
+        li {
+            margin-bottom: 5px;
         }
 
         /* Estilo del botón */
         #startGame {
-            padding: 15px 30px;
+            padding: 12px 30px;
             font-size: 20px;
             font-weight: bold;
             background-color: #ffcc00;
@@ -64,18 +94,36 @@
 </head>
 <body>
     <div class="container">
-        <h1>¡Bienvenido al Juego de Caza Patos Matemáticos!</h1>
-        <p>En este juego, debes responder preguntas matemáticas y cazar los patos correctos con tu puntería.  
-        ¡Responde rápido y mejora tu puntuación!</p>
-        <p>Cuando estés listo, presiona el botón para comenzar.</p>
-        <button id="startGame">Empezar Juego</button>
+        <h1>Instrucciones</h1>
+        
+        <div class="instructions">
+            <div>
+                <p><span class="highlight">🔹 Nivel 1:</span> Dispara a los patos y gana <span class="highlight">10 puntos</span> por cada uno.</p>
+                <p>Si logras <span class="highlight">1000 puntos</span>, pasas al siguiente nivel.</p>
+                <p>Si <span class="highlight">3 patos</span> escapan, debes resolver un ejercicio matemático:</p>
+                <ul>
+                    <li>✔️ Respuesta correcta: Sigues jugando con el mismo puntaje.</li>
+                    <li>❌ Respuesta incorrecta: Tu puntaje se reinicia a <span class="highlight">0</span>.</li>
+                </ul>
+            </div>
+            <div>
+                <p><span class="highlight">🔹 Nivel 2:</span> Ahora estás en un escenario espacial, donde debes derribar <span class="highlight">naves enemigas</span>.</p>
+                <p>Si una bala te impacta  o <span class="highlight">3 naves</span> se escapan debes resolver otro ejercicio matemático:</p>
+                <ul>
+                    <li>✔️ Respuesta correcta: Sigues jugando con el mismo puntaje.</li>
+                    <li>❌ Respuesta incorrecta: Tu puntaje se reinicia a <span class="highlight">0</span>.</li>
+                </ul>
+                <p>Si alcanzas <span class="highlight">1200 puntos</span>, ¡ganas el juego y obtienes tu premio! 🏆</p>
+            </div>
+        </div>
+
+        <button id="startGame">🎯 Empezar Juego</button>
     </div>
 
     <script>
-       document.getElementById("startGame").addEventListener("click", function() {
-    window.location.href = "templates/index2.html"; // Redirige al juego principal dentro de la carpeta templates
-});
-
+        document.getElementById("startGame").addEventListener("click", function() {
+            window.location.href = "templates/index2.html"; // Redirige al juego principal
+        });
     </script>
 </body>
 </html>
