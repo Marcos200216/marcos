@@ -151,7 +151,7 @@ function detectCollisions() {
                 d.reset();
                 bullets = bullets.filter(bullet => bullet !== b);
 
-                if (score >= 1200) {
+                if (score >= 1000) {
                     showLevelUpMessage();
                 }
             }
