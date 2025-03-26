@@ -88,12 +88,31 @@
             left: 50%;
             transform: translate(-50%, -50%);
             background-color: white;
-            padding: 20px;
+            padding: 30px;
             border: 2px solid #ccc;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             width: 80%;
             max-width: 500px;
             text-align: center;
+            border-radius: 10px;
+        }
+
+        .feedback-modal h3 {
+            font-size: 1.8em;
+            color: #d9534f;
+            margin-bottom: 20px;
+        }
+
+        .feedback-modal p {
+            font-size: 1.1em;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .feedback-modal img {
+            width: 80%;
+            border-radius: 5px;
+            margin-bottom: 20px;
         }
 
         .feedback-modal .close-btn {
@@ -103,6 +122,8 @@
             border: none;
             border-radius: 5px;
             cursor: pointer;
+            font-size: 1em;
+            transition: background-color 0.3s;
         }
 
         .feedback-modal .close-btn:hover {
@@ -124,6 +145,7 @@
     <div id="feedback-modal" class="feedback-modal">
         <h3>Respuesta Incorrecta</h3>
         <p id="feedback-text"></p>
+        <img id="feedback-image" src="" alt="Imagen retroalimentación">
         <button class="close-btn" onclick="closeFeedback()">Cerrar</button>
     </div>
 
@@ -133,33 +155,33 @@
         document.getElementById('score').innerText = savedScore;
 
         const preguntas = [
-            { imagen: "ejercicio1.png", tipo: "vf", respuesta: "Verdadero" },
-            { imagen: "ejercicio2.png", tipo: "vf", respuesta: "Falso" },
-            { imagen: "ejercicio3.png", tipo: "vf", respuesta: "Verdadero" },
-            { imagen: "ejercicio4.png", tipo: "vf", respuesta: "Falso" },
+            { imagen: "ejercicio1.png", tipo: "vf", respuesta: "Falso", feedbackImage: "feedback1.png" },
+            { imagen: "ejercicio2.png", tipo: "vf", respuesta: "Verdadero", feedbackImage: "feedback2.png" },
+            { imagen: "ejercicio3.png", tipo: "vf", respuesta: "Verdadero", feedbackImage: "feedback3.png" },
+            { imagen: "ejercicio4.png", tipo: "vf", respuesta: "Verdadero", feedbackImage: "feedback4.png" },
             {
                 imagen: "ejercicio5.png", tipo: "opciones",
-                opciones: ["Es un subespacio vectorial cumple con las 3 condiciones", "No un subespacio vectorial",
-                    "Es un subespacio vectorial cumple con las 10 condiciones", "Es un subespacio vectorial cumple con las 2 condiciones"],
-                respuesta: "Es un subespacio vectorial cumple con las 3 condiciones"
+                opciones: ["u con v no son proporcionales", "u con w No son proporcionales",
+                    "v con w combinación lineal", "Ninguna de las anteriores"],
+                respuesta: "v con w combinación lineal", feedbackImage: "feedback5.png"
             },
             {
                 imagen: "ejercicio6.png", tipo: "opciones",
-                opciones: ["Es un subespacio vectorial, cumple con las 2 condiciones",
-                    "Es un subespacio vectorial, cumple con las 3 condiciones", "No un subespacio vectorial", "Es un subespacio vectorial, cumple con las 10 condiciones"],
-                respuesta: "No un subespacio vectorial"
+                opciones: ["w es solo una combinación lineal con u",
+                    "no son porporcionales", "w es combinación lineal de u y v", "Ninguna de las anteriores"],
+                respuesta: "w es combinación lineal de u y v", feedbackImage: "feedback6.png"
             },
             {
                 imagen: "ejercicio7.png", tipo: "opciones",
-                opciones: ["W es un subespacio de R2", "W no es un subespacio de R2",
-                    "Se cumple en el primer paso", "Ninguna de las anteriores"],
-                respuesta: "W no es un subespacio de R2"
+                opciones: ["si a=1 ", "si a≠1",
+                    "si a=-1", "Ninguna de las anteriores"],
+                respuesta: "si a≠1", feedbackImage: "feedback7.png"
             },
             {
                 imagen: "ejercicio8.png", tipo: "opciones",
-                opciones: ["W no es un subespacio de IR2", "W es un subespacio de IR2",
-                    "Se cumple hasta el tercer paso", "Ninguna de las anteriores"],
-                respuesta: "W es un subespacio de IR2"
+                opciones: ["Son linealmente independientes y forman una base.", "No forman una base.",
+                    "Son linealmente dependientes y forman una base.", "Ninguna de las anteriores"],
+                respuesta: "Son linealmente independientes y forman una base.", feedbackImage: "feedback8.png"
             }
         ];
 
@@ -186,25 +208,27 @@
         function checkAnswer(userAnswer) {
             let alertDiv = document.getElementById('alert');
             if (userAnswer === preguntaActual.respuesta) {
-                savedScore; // Incrementar el puntaje
+            
                 localStorage.setItem("gameScore", savedScore); // Guardar el puntaje en localStorage
                 alert("¡Correcto! Sigues jugando.");
                 setTimeout(() => {
                     window.location.href = "otro_nivel.html"; // Redirigir después de 2 segundos
-                }, 2000);
+                });
             } else {
                 // Mostrar modal de retroalimentación
-                showFeedback(preguntaActual.respuesta);
+                showFeedback(preguntaActual.respuesta, preguntaActual.feedbackImage);
                 localStorage.setItem("gameScore", 0); // Resetear el puntaje si la respuesta es incorrecta
             }
         }
 
-        function showFeedback(respuestaCorrecta) {
+        function showFeedback(respuestaCorrecta, feedbackImage) {
             let feedbackModal = document.getElementById('feedback-modal');
             let feedbackText = document.getElementById('feedback-text');
+            let feedbackImageElement = document.getElementById('feedback-image');
             feedbackText.innerHTML = `
                 <strong>Respuesta correcta:</strong> ${respuestaCorrecta} <br>
             `;
+            feedbackImageElement.src = feedbackImage;
             feedbackModal.style.display = "block";
         }
 
@@ -223,8 +247,6 @@
             }
             sessionStorage.setItem("answeredCorrectly", "true");
         };
-
-    
     </script>
 </body>
 
